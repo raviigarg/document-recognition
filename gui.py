@@ -1,30 +1,45 @@
 # import requires packages
 from tkinter import *
+from get_text import *
 from tkinter import filedialog as fd
 
 # Open Directory Box, choose file and get path of local file
 def get_file():
+    # Update global variable filepath
+    global filepath
     filename = fd.askopenfilename() # Open directory box
-    print(filename)
+    filepath = filename
 
 # Get url of remote file
 def get_url():
     # Replace button with Entry
+    global in_url
     url_button.destroy()
-    in_url = Entry(main_window, width=17)
     in_url.grid(row=3, column=0, pady=30)
-    print("URL window called")
 
 # Submit local file path
 def submit_file():
-    print("File submitted")
+    # Get text of local file
+    test_file = ocr_space_file(filename=filepath, language='eng') # Make request to OCR.space API
+    json_str = json.loads(test_file) # Decode JSON data
+    extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
+    extracted_text = extracted_text.replace(" \r\n",  " ")
+    print(extracted_text)
 
 # Submit remote file url
 def submit_url():
-    print("URL submitted")
+    # Get text of remote file
+    global filepath
+    filepath = in_url.get() # Get file url from Entry field
+    test_file = ocr_space_url(str(filepath), language='eng') # Make request to OCR.space API
+    json_str = json.loads(test_file) # Decode JSON data
+    extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
+    extracted_text = extracted_text.replace(" \r\n",  " ")
+    print(extracted_text)
 
 labelfont = ('times', 20, 'bold')
 footerfont = ('times', 15, 'bold')
+filepath = ''
 
 # Load main window
 main_window = Tk()
@@ -68,6 +83,9 @@ url_button = Button(main_window, text="Enter URL", command=get_url)
 url_button.config(bg='black', fg='gainsboro')
 url_button.grid(row=3, column=0, pady=30)
 
+# Entry for URl
+in_url = Entry(main_window, width=17)
+
 arrow2 = Label(main_window, text='===>>>>>')
 arrow2.config(bg='black', fg='gainsboro')  
 arrow2.config(font=labelfont)           
@@ -80,7 +98,7 @@ submit_url.config(bg='black', fg='gainsboro')
 submit_url.grid(row=3, column=2)
 
 # Show footer text
-footer_text = Label(main_window, text='Made with \u2665 by Ravi.')
+footer_text = Label(main_window, text='<< Made with \u2665 by Ravi >>')
 footer_text.config(bg='black', fg='gainsboro')  
 footer_text.config(font=footerfont)           
 footer_text.config(height=1)       
