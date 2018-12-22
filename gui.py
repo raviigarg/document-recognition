@@ -24,6 +24,8 @@ def submit_file():
     json_str = json.loads(test_file) # Decode JSON data
     extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
     extracted_text = extracted_text.replace(" \r\n",  " ")
+    with open("predict/predict", "w") as text_file:
+        text_file.write("%s" % extracted_text)
     print(extracted_text)
 
 # Submit remote file url
@@ -35,6 +37,8 @@ def submit_url():
     json_str = json.loads(test_file) # Decode JSON data
     extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
     extracted_text = extracted_text.replace(" \r\n",  " ")
+    with open("predict/predict", "w") as text_file:
+        text_file.write("%s" % extracted_text)
     print(extracted_text)
 
 labelfont = ('times', 20, 'bold')
