@@ -3,6 +3,7 @@ from tkinter import *
 from get_text import *
 from tkinter import filedialog as fd
 import webbrowser
+from identify import *
 
 # Open Directory Box, choose file and get path of local file
 def get_file():
@@ -26,8 +27,11 @@ def submit_file():
     extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
     extracted_text = extracted_text.replace(" \r\n",  " ")
     with open("predict/predict", "w") as text_file:
-        text_file.write("%s" % extracted_text)
+        text_file.write("yes	%s" % extracted_text)
     print(extracted_text)
+    # get predicted label on extracted text using make_predictions method in identify.py
+    predicted_label = make_predictions()
+    print(predicted_label)
 
 # Submit remote file url
 def submit_url():
@@ -39,8 +43,11 @@ def submit_url():
     extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
     extracted_text = extracted_text.replace(" \r\n",  " ")
     with open("predict/predict", "w") as text_file:
-        text_file.write("%s" % extracted_text)
+        text_file.write("yes	%s" % extracted_text)
     print(extracted_text)
+    # get predicted label on extracted text using make_predictions method in identify.py
+    predicted_label = make_predictions()
+    print(predicted_label)
 
 # open linedin
 def open_linkedin(event):

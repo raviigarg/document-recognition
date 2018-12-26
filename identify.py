@@ -51,5 +51,16 @@ predictions = naive_bayes.predict(testing_data)
 # check accuracy
 print('Accuracy score: ', format(accuracy_score(y_test, predictions)))
 
-
-
+# function to make prediction on input document's text
+def make_predictions():
+    # load text from predict file
+    df_predict = pd.read_table("predict/predict", sep='\t', header=None, 
+                   names=['label', 'content'])
+    # map labels yes to 1 and no to 0 for test dataset
+    df_predict['label'] = df_predict.label.map({'no':0, 'yes':1})
+    x_predict = df_predict['content']
+    # apply bag of words
+    prediction_data = count_vector.transform(x_predict)
+    # return predicted label
+    result =  naive_bayes.predict(prediction_data)
+    return result[0]
