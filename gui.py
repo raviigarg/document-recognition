@@ -24,6 +24,7 @@ def get_url():
     print("enter url..")
     global in_url
     url_button.destroy()
+    in_url = Entry(main_window, width=17)
     in_url.grid(row=3, column=0, pady=30)
 
 # Submit local file path
@@ -54,7 +55,13 @@ def submit_file():
 def submit_url():
     # Get text of remote file
     global filepath
+    global url_button
     filepath = in_url.get() # Get file url from Entry field
+    # replace entry with url button
+    in_url.destroy()
+    url_button = Button(main_window, text="Enter URL", command=get_url)
+    url_button.config(bg='black', fg='yellow')
+    url_button.grid(row=3, column=0, pady=30)
     if filepath == '':
         print("nothing entered")
         return
@@ -149,6 +156,8 @@ labelfont = ('times', 20, 'bold')
 footerfont = ('times', 15, 'bold')
 filepath = None
 result_win = None
+# Entry for URl
+in_url = None
 
 print("application window opened....")
 
@@ -203,9 +212,6 @@ sep_text.grid(row=2, column=1)
 url_button = Button(main_window, text="Enter URL", command=get_url)
 url_button.config(bg='black', fg='yellow')
 url_button.grid(row=3, column=0, pady=30)
-
-# Entry for URl
-in_url = Entry(main_window, width=17)
 
 arrow2 = Label(main_window, text='===>>>>>')
 arrow2.config(bg='black', fg='yellow')  
