@@ -3,35 +3,51 @@ from tkinter import *
 from get_text import *
 from tkinter import filedialog as fd
 import webbrowser
+from tkinter import messagebox
 from identify import *
 
 # Open Directory Box, choose file and get path of local file
 def get_file():
     # Update global variable filepath
+    print("browse document..")
     global filepath
     filename = fd.askopenfilename() # Open directory box
     filepath = filename
+    if str(filename) == "" or str(filename) == "()":
+        print("nothing selected")
+    else :
+        print(str(filename) + " selected")
 
 # Get url of remote file
 def get_url():
     # Replace button with Entry
+    print("enter url..")
     global in_url
     url_button.destroy()
     in_url.grid(row=3, column=0, pady=30)
 
 # Submit local file path
 def submit_file():
+    global filepath
     # Get text of local file
+    print("file submitted..")
     test_file = ocr_space_file(filename=filepath, language='eng') # Make request to OCR.space API
     json_str = json.loads(test_file) # Decode JSON data
     extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
     extracted_text = extracted_text.replace(" \r\n",  " ")
+    print("text extracted..")
     with open("predict/predict", "w") as text_file:
         text_file.write("yes	%s" % extracted_text)
-    print(extracted_text)
+    print("text written to file..")
+    # print(extracted_text)
     # get predicted label on extracted text using make_predictions method in identify.py
+    print("making prediction..")
     predicted_label = make_predictions()
-    print(predicted_label)
+    print("prediction made..")
+    # update filepath to empty
+    filepath = ''
+    # print(predicted_label)
+    print("showing result..")
     show_result(predicted_label)
 
 # Submit remote file url
@@ -39,16 +55,29 @@ def submit_url():
     # Get text of remote file
     global filepath
     filepath = in_url.get() # Get file url from Entry field
+    if filepath == '':
+        print("nothing entered")
+        return
+    else :
+        print(str(filepath) + " entered")
+    print("url submitted")
     test_file = ocr_space_url(str(filepath), language='eng') # Make request to OCR.space API
     json_str = json.loads(test_file) # Decode JSON data
     extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
     extracted_text = extracted_text.replace(" \r\n",  " ")
+    print("text extracted..")
     with open("predict/predict", "w") as text_file:
         text_file.write("yes	%s" % extracted_text)
-    print(extracted_text)
+    print("text written to file..")
+    # print(extracted_text)
     # get predicted label on extracted text using make_predictions method in identify.py
+    print("making prediction..")
     predicted_label = make_predictions()
-    print(predicted_label)
+    print("prediction made..")
+    # update filepath to empty
+    filepath = ''
+    # print(predicted_label)
+    print("showing result..")
     show_result(predicted_label)
 
 # open linedin
@@ -66,6 +95,7 @@ def open_twitter(event):
 # close result window
 def close_result(): 
     result_win.destroy()
+    print("result window closed..")
 
 # show result box
 def show_result(label):
@@ -101,11 +131,26 @@ def show_result(label):
     close_button = Button(result_win, text="Ok", command=close_result)
     close_button.config(bg='black', fg='yellow')
     close_button.grid(row=1, column=0)
+    result_win.protocol("WM_DELETE_WINDOW", on_closing_result)
+    print("result window opened..")
+
+# display message to ask for closing of application
+def on_closing_main():
+    if messagebox.askokcancel("Quit", "Do you want to quit?"):
+        main_window.destroy()
+        print("application window closed....")
+
+# event log on explicitly closing of result window
+def on_closing_result():
+    result_win.destroy()
+    print("result window closed..")
 
 labelfont = ('times', 20, 'bold')
 footerfont = ('times', 15, 'bold')
-filepath = ''
+filepath = None
 result_win = None
+
+print("application window opened....")
 
 # Load main window
 main_window = Tk()
@@ -198,5 +243,7 @@ label_twitter = Label(image=image_twitter, bg='black', cursor="hand2")
 label_twitter.grid(row=5, column=1, padx=(75, 0), pady=(7,0))
 label_twitter.bind("<Button-1>", open_twitter)
 
+# protocol for explicitly closing main window using the window manager
+main_window.protocol("WM_DELETE_WINDOW", on_closing_main)
 # Call main window
 main_window.mainloop()

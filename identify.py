@@ -29,7 +29,7 @@ training_data = count_vector.fit_transform(x_train)
 # fit training data to Multinomial Naive Bayes classifier in sckit-learn
 naive_bayes = MultinomialNB()
 naive_bayes.fit(training_data, y_train)
-print("Data preprocessing done")
+# print("Data preprocessing done")
 
 # import testing dataset into pandas dataframe using the read_table method
 df_test = pd.read_table("doccollection/TestCollection", sep='\t', header=None, 
@@ -49,7 +49,7 @@ testing_data = count_vector.transform(x_test)
 predictions = naive_bayes.predict(testing_data)
 
 # check accuracy
-print('Accuracy score: ', format(accuracy_score(y_test, predictions)))
+# print('Accuracy score: ', format(accuracy_score(y_test, predictions)))
 
 # function to make prediction on input document's text
 def make_predictions():
