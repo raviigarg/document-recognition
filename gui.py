@@ -32,6 +32,7 @@ def submit_file():
     # get predicted label on extracted text using make_predictions method in identify.py
     predicted_label = make_predictions()
     print(predicted_label)
+    show_result(predicted_label)
 
 # Submit remote file url
 def submit_url():
@@ -48,6 +49,7 @@ def submit_url():
     # get predicted label on extracted text using make_predictions method in identify.py
     predicted_label = make_predictions()
     print(predicted_label)
+    show_result(predicted_label)
 
 # open linedin
 def open_linkedin(event):
@@ -60,6 +62,25 @@ def open_github(event):
 # open twitter
 def open_twitter(event):
      webbrowser.open_new(r"https://twitter.com/raviigarg")
+
+# show result box
+def show_result(label):
+    result_win = Tk()
+    result_win.title('Predicted result')
+    result_win.geometry("600x150")
+    result_win.resizable(width=FALSE, height=FALSE)
+    result_win.config(bg='black')
+    result_text = ''
+    if label == 1:
+        result_text = 'Document is form 16'
+    else :
+        result_text = 'Document is not form 16'
+
+    result_title_text = Label(result_win, text=result_text)
+    result_title_text.config(bg='black', fg='yellow')  
+    result_title_text.config(font=footerfont)           
+    result_title_text.config(height=2)       
+    result_title_text.grid(row=0, column=0, padx=200, pady=30)
 
 labelfont = ('times', 20, 'bold')
 footerfont = ('times', 15, 'bold')
