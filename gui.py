@@ -63,11 +63,27 @@ def open_github(event):
 def open_twitter(event):
      webbrowser.open_new(r"https://twitter.com/raviigarg")
 
+# close result window
+def close_result(): 
+    result_win.destroy()
+
 # show result box
 def show_result(label):
+    # window for result
+    global result_win # update global variable result_win
     result_win = Tk()
     result_win.title('Predicted result')
-    result_win.geometry("600x150")
+    # get screen width and height
+    result_screen_width = result_win.winfo_screenwidth()
+    result_screen_height = result_win.winfo_screenheight()
+    # result window width and height
+    result_window_width = 600
+    result_window_height = 150
+    # x and y cordinate of result window to center in screen
+    result_x_cordinate = int((result_screen_width/2) - (result_window_width/2))
+    result_y_cordinate = int((result_screen_height/2) - (result_window_height/2))
+
+    result_win.geometry("{}x{}+{}+{}".format(result_window_width, result_window_height, result_x_cordinate, result_y_cordinate))
     result_win.resizable(width=FALSE, height=FALSE)
     result_win.config(bg='black')
     result_text = ''
@@ -82,14 +98,29 @@ def show_result(label):
     result_title_text.config(height=2)       
     result_title_text.grid(row=0, column=0, padx=200, pady=30)
 
+    close_button = Button(result_win, text="Ok", command=close_result)
+    close_button.config(bg='black', fg='yellow')
+    close_button.grid(row=1, column=0)
+
 labelfont = ('times', 20, 'bold')
 footerfont = ('times', 15, 'bold')
 filepath = ''
+result_win = None
 
 # Load main window
 main_window = Tk()
 main_window.title('Document Recognition Application')
-main_window.geometry("900x600")
+# get screen width and height
+screen_width = main_window.winfo_screenwidth()
+screen_height = main_window.winfo_screenheight()
+# main window width and height
+window_width = 900
+window_height = 600
+# x and y cordinate of main window to center in screen
+x_cordinate = int((screen_width/2) - (window_width/2))
+y_cordinate = int((screen_height/2) - (window_height/2))
+
+main_window.geometry("{}x{}+{}+{}".format(window_width, window_height, x_cordinate, y_cordinate))
 main_window.resizable(width=FALSE, height=FALSE)
 main_window.config(bg='black')
 
