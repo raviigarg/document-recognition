@@ -31,11 +31,21 @@ def get_url():
 def submit_file():
     global filepath
     # Get text of local file
+    if str(filepath) == "" or str(filepath) == "()":
+        print("warning box displayed")
+        messagebox.showwarning("Warning","File not selected, Please select a valid file.")
+        return
     print("file submitted..")
-    test_file = ocr_space_file(filename=filepath, language='eng') # Make request to OCR.space API
-    json_str = json.loads(test_file) # Decode JSON data
-    extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
-    extracted_text = extracted_text.replace(" \r\n",  " ")
+    # exception if document type is not valid
+    try :
+        test_file = ocr_space_file(filename=filepath, language='eng') # Make request to OCR.space API
+        json_str = json.loads(test_file) # Decode JSON data
+        extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
+        extracted_text = extracted_text.replace(" \r\n",  " ")
+    except KeyError as e:
+        if str(e) == '\'ParsedResults\'' :
+            messagebox.showerror("Error", "Document type is not valid, Select a valid document")
+        return
     print("text extracted..")
     with open("predict/predict", "w") as text_file:
         text_file.write("yes	%s" % extracted_text)
@@ -57,21 +67,29 @@ def submit_url():
     global filepath
     global url_button
     filepath = in_url.get() # Get file url from Entry field
+    if filepath == '':
+        print("nothing entered")
+        print("warning box displayed")
+        messagebox.showwarning("Warning", "Input box empty, Please enter a valid url.")
+        return
+    else :
+        print(str(filepath) + " entered")
     # replace entry with url button
     in_url.destroy()
     url_button = Button(main_window, text="Enter URL", command=get_url)
     url_button.config(bg='black', fg='yellow')
     url_button.grid(row=3, column=0, pady=30)
-    if filepath == '':
-        print("nothing entered")
-        return
-    else :
-        print(str(filepath) + " entered")
     print("url submitted")
-    test_file = ocr_space_url(str(filepath), language='eng') # Make request to OCR.space API
-    json_str = json.loads(test_file) # Decode JSON data
-    extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
-    extracted_text = extracted_text.replace(" \r\n",  " ")
+    # exception if document url is not valid
+    try :
+        test_file = ocr_space_url(str(filepath), language='eng') # Make request to OCR.space API
+        json_str = json.loads(test_file) # Decode JSON data
+        extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
+        extracted_text = extracted_text.replace(" \r\n",  " ")
+    except KeyError as e:
+        if str(e) == '\'ParsedResults\'' :
+            messagebox.showerror("Error", "URL is not valid, Enter a valid url")
+        return
     print("text extracted..")
     with open("predict/predict", "w") as text_file:
         text_file.write("yes	%s" % extracted_text)
