@@ -247,7 +247,7 @@ footer_text = Label(main_window, text='<< Made with \u2665 by Ravi >>')
 footer_text.config(bg='black', fg='yellow')  
 footer_text.config(font=footerfont)           
 footer_text.config(height=1)       
-footer_text.grid(row=4, column=1, pady=(110,0))
+footer_text.grid(row=4, column=1, pady=(75, 0))
 
 # Show linkedin icon
 image_linkedin = PhotoImage(file="icons/linkedin.png")
