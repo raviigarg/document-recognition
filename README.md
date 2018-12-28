@@ -4,9 +4,41 @@ A simple python based Document Recognition Application to identify whether a doc
 ## Demo
 ![user-interface](user-interface.png)
 
-This application requires either a local document or url of document if it is not present on your personal computer (document should be in image or pdf format). It will work as input for the application and it will predict that whether the document submitted is form 16 or not. Application requires a internet connection as it makes request to an online API to extract text from image or pdf. 
+This application inputs either a local file of document or url of document if it is not present on your personal computer (document should be in image or pdf format). It will work as input for the application and it will predict that whether the document submitted is form 16 or not. Application requires a internet connection as it makes request to an online API to extract text from image or pdf. 
 
 Document file size shold not be greater than 1 MB. In case of pdf it should not be more than 3 pages. Image should have dpi greater than 300 dpi (dots per inch).
+
+## Getting Started
+These instructions will help you to run the project on your local machine.
+### Prerequisites
+You will need the following, before running the project:
+
+- [Python](https://www.python.org/) v3.x.
+- [Tkinter](https://docs.python.org/2/library/tkinter.html)
+- [Requests](http://docs.python-requests.org)
+
+Make sure that you have installed all the prerequisites.
+
+### Run
+Once you have installed all the prerequisites, now it's time to run the application.
+
+First, clone the project.
+
+Open terminal on your machine and run the following command -
+
+```
+$ git clone https://gitlab.com/raviigarg/document-recognition.git
+Cloning into 'document-recognition'...
+```
+
+Now, go into the project's directory and run the following command - 
+
+```
+$ python index.py
+```
+
+This will start the application. Now you can make predictions on your documents.
+
 ## Built With
 - [Tkinter](https://docs.python.org/2/library/tkinter.html) - Graphical User Interface
 - [Pandas](https://pandas.pydata.org/) - For importing dataset
@@ -15,5 +47,5 @@ Document file size shold not be greater than 1 MB. In case of pdf it should not 
 ## Acknowledgements
 - Thanks to [Free OCR API](https://ocr.space/ocrapi) for parsing image and pdf and return the extracted text in json format.
 - Thanks to [Flaticon](https://www.flaticon.com/home) for providing icons of social links.
-- Thanks to [TRACES](https://contents.tdscpc.gov.in/) for providing form 16 and other forms. 
+- Thanks to [TRACES](https://contents.tdscpc.gov.in/) for providing form no. 16 and other forms. 
 - Thanks to [Zaargh](https://github.com/Zaargh/ocr.space_code_example/blob/master/ocrspace_example.py) for providing code snippet to extract text from OCR.space API using `requests.post`.
