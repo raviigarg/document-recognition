@@ -31,7 +31,7 @@ def get_url():
 def submit_file():
     global filepath
     # Get text of local file
-    if str(filepath) == "" or str(filepath) == "()":
+    if str(filepath) == "" or str(filepath) == "()" or filepath == None:
         print("warning box displayed")
         messagebox.showwarning("Warning","File not selected, Please select a valid file.")
         return
@@ -43,6 +43,7 @@ def submit_file():
         extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
         extracted_text = extracted_text.replace(" \r\n",  " ")
     except KeyError as e:
+        print(str(e))
         if str(e) == '\'ParsedResults\'' :
             messagebox.showerror("Error", "Document type is not valid, Select a valid document")
         return
@@ -66,8 +67,11 @@ def submit_url():
     # Get text of remote file
     global filepath
     global url_button
+    if in_url == None :
+        messagebox.showwarning("Warning", " Please enter a valid url.")
+        return
     filepath = in_url.get() # Get file url from Entry field
-    if filepath == '':
+    if filepath == '' or filepath == None:
         print("nothing entered")
         print("warning box displayed")
         messagebox.showwarning("Warning", "Input box empty, Please enter a valid url.")
@@ -119,13 +123,18 @@ def open_twitter(event):
 
 # close result window
 def close_result(): 
+    global result_win
     result_win.destroy()
+    result_win = None
     print("result window closed..")
 
 # show result box
 def show_result(label):
     # window for result
     global result_win # update global variable result_win
+    if result_win != None :
+        result_win.destroy()
+        result_win = None
     result_win = Tk()
     result_win.title('Predicted result')
     # get screen width and height
