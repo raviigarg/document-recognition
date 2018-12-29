@@ -6,7 +6,7 @@ A simple python based Document Recognition Application to identify whether a doc
 
 This application inputs either a local file of document or url of document if it is not present on your personal computer (document should be in image or pdf format). It will work as input for the application and it will predict that whether the document submitted is form 16 or not. Application requires a internet connection as it makes request to an online API to extract text from image or pdf. 
 
-Document file size shold not be greater than 1 MB. In case of pdf it should not be more than 3 pages. Image should have dpi greater than 300 dpi (dots per inch).
+Document file size should not be greater than 1 MB. In case of pdf it should not be more than 3 pages. Image should have dpi greater than 300 dpi (dots per inch).
 
 ## Getting Started
 These instructions will help you to run the project on your local machine.

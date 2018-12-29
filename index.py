@@ -65,28 +65,24 @@ def submit_file():
 # Submit remote file url
 def submit_url():
     # Get text of remote file
-    global filepath
+    global in_url
+    global fileurl
     global url_button
     if in_url == None :
         messagebox.showwarning("Warning", " Please enter a valid url.")
         return
-    filepath = in_url.get() # Get file url from Entry field
-    if filepath == '' or filepath == None:
+    fileurl = in_url.get() # Get file url from Entry field
+    if fileurl == '' or fileurl == None:
         print("nothing entered")
         print("warning box displayed")
         messagebox.showwarning("Warning", "Input box empty, Please enter a valid url.")
         return
     else :
-        print(str(filepath) + " entered")
-    # replace entry with url button
-    in_url.destroy()
-    url_button = Button(main_window, text="Enter URL", command=get_url)
-    url_button.config(bg='black', fg='yellow')
-    url_button.grid(row=3, column=0, pady=30)
+        print(str(fileurl) + " entered")
     print("url submitted")
     # exception if document url is not valid
     try :
-        test_file = ocr_space_url(str(filepath), language='eng') # Make request to OCR.space API
+        test_file = ocr_space_url(str(fileurl), language='eng') # Make request to OCR.space API
         json_str = json.loads(test_file) # Decode JSON data
         extracted_text = json_str["ParsedResults"][0]["ParsedText"] # Get text from JSON
         extracted_text = extracted_text.replace(" \r\n",  " ")
@@ -103,8 +99,14 @@ def submit_url():
     print("making prediction..")
     predicted_label = make_predictions()
     print("prediction made..")
+    # replace entry with url button
+    in_url.destroy()
+    url_button = Button(main_window, text="Enter URL", command=get_url)
+    url_button.config(bg='black', fg='yellow')
+    url_button.grid(row=3, column=0, pady=30)
     # update filepath to empty
-    filepath = ''
+    fileurl = ''
+    in_url = None
     # print(predicted_label)
     print("showing result..")
     show_result(predicted_label)
@@ -182,6 +184,7 @@ def on_closing_result():
 labelfont = ('times', 20, 'bold')
 footerfont = ('times', 15, 'bold')
 filepath = None
+fileurl = None
 result_win = None
 # Entry for URl
 in_url = None
