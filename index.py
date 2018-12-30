@@ -48,6 +48,10 @@ def submit_file():
             messagebox.showerror("Error", "Document type is not valid, Select a valid document")
         return
     print("text extracted..")
+    # Error if document quality is less
+    if str(extracted_text) == "":
+        messagebox.showerror("Error", "Image or pdf quality is too lower.")
+        return
     with open("predict/predict", "w") as text_file:
         text_file.write("yes	%s" % extracted_text)
     print("text written to file..")
@@ -91,6 +95,10 @@ def submit_url():
             messagebox.showerror("Error", "URL is not valid, Enter a valid url")
         return
     print("text extracted..")
+    # Error if document quality is less
+    if str(extracted_text) == "":
+        messagebox.showerror("Error", "Image or pdf quality is too lower.")
+        return
     with open("predict/predict", "w") as text_file:
         text_file.write("yes	%s" % extracted_text)
     print("text written to file..")
