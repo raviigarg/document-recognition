@@ -47,6 +47,9 @@ def submit_file():
         if str(e) == '\'ParsedResults\'' :
             messagebox.showerror("Error", "Document type is not valid, Select a valid document")
         return
+    except requests.exceptions.ConnectionError as e : # Internet connection exception
+         messagebox.showerror("Error", "Can't connect to internet")
+         return
     print("text extracted..")
     # Error if document quality is less
     if str(extracted_text) == "":
@@ -94,6 +97,9 @@ def submit_url():
         if str(e) == '\'ParsedResults\'' :
             messagebox.showerror("Error", "URL is not valid, Enter a valid url")
         return
+    except requests.exceptions.ConnectionError as e : # Internet connection exception
+         messagebox.showerror("Error", "Can't connect to internet")
+         return
     print("text extracted..")
     # Error if document quality is less
     if str(extracted_text) == "":
