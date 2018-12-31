@@ -47,6 +47,9 @@ def submit_file():
         if str(e) == '\'ParsedResults\'' :
             messagebox.showerror("Error", "Document type is not valid, Select a valid document")
         return
+    except TypeError as e : # requests limit exception
+        messagebox.showerror("Error", "Requests limit increased.")
+        return
     except requests.exceptions.ConnectionError as e : # Internet connection exception
          messagebox.showerror("Error", "Can't connect to internet")
          return
@@ -96,6 +99,9 @@ def submit_url():
     except KeyError as e:
         if str(e) == '\'ParsedResults\'' :
             messagebox.showerror("Error", "URL is not valid, Enter a valid url")
+        return
+    except TypeError as e : # requests limit exception
+        messagebox.showerror("Error", "Requests limit increased.")
         return
     except requests.exceptions.ConnectionError as e : # Internet connection exception
          messagebox.showerror("Error", "Can't connect to internet")
