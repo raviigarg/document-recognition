@@ -16,6 +16,8 @@ You will need the following, before running the project:
 - [Python](https://www.python.org/) v3.x.
 - [Tkinter](https://docs.python.org/2/library/tkinter.html)
 - [Requests](http://docs.python-requests.org)
+- [Pandas](https://pandas.pydata.org/)
+- [scikit-learn](https://scikit-learn.org/stable/install.html)
 
 Make sure that you have installed all the prerequisites.
 
