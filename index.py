@@ -5,6 +5,7 @@ from tkinter import filedialog as fd
 import webbrowser
 from tkinter import messagebox
 from identify import *
+from PIL import Image, ImageTk
 
 # Open Directory Box, choose file and get path of local file
 def get_file():
@@ -281,20 +282,23 @@ footer_text.config(font=footerfont)
 footer_text.config(height=1)       
 footer_text.grid(row=4, column=1, pady=(75, 0))
 
-# Show linkedin icon
-image_linkedin = PhotoImage(file="icons/linkedin.png")
+# show linkedin icon
+linkedin_logo = Image.open("icons/linkedin.png")
+image_linkedin = ImageTk.PhotoImage(linkedin_logo)
 label_linkedin = Label(image=image_linkedin, bg='black', cursor="hand2")
 label_linkedin.grid(row=5, column=1, pady=(7,0))
 label_linkedin.bind("<Button-1>", open_linkedin)
 
-# Show github icon
-image_github = PhotoImage(file="icons/github.png")
+# show github icon
+github_logo = Image.open("icons/github.png")
+image_github = ImageTk.PhotoImage(github_logo)
 label_github = Label(image=image_github, bg='black', cursor="hand2")
 label_github.grid(row=5, column=1, padx=(0,75), pady=(7,0))
 label_github.bind("<Button-1>", open_github)
 
-# Show twitter icon
-image_twitter = PhotoImage(file="icons/twitter.png")
+# show twitter icon
+twitter_logo = Image.open("icons/twitter.png")
+image_twitter = ImageTk.PhotoImage(twitter_logo)
 label_twitter = Label(image=image_twitter, bg='black', cursor="hand2")
 label_twitter.grid(row=5, column=1, padx=(75, 0), pady=(7,0))
 label_twitter.bind("<Button-1>", open_twitter)

@@ -18,6 +18,7 @@ You will need the following, before running the project:
 - [Requests](http://docs.python-requests.org)
 - [Pandas](https://pandas.pydata.org/)
 - [scikit-learn](https://scikit-learn.org/stable/install.html)
+- [PIL](https://pypi.org/project/Pillow/)
 
 Make sure that you have installed all the prerequisites.
 
