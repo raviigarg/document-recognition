@@ -20,6 +20,14 @@ You will need the following, before running the project:
 - [scikit-learn](https://scikit-learn.org/stable/install.html)
 - [PIL](https://pypi.org/project/Pillow/)
 
+It is prefered to make virtual environment to install all the dependencies. To create virtual environment instructions can be found [here](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/). Now activate your virtual environment.
+
+To install all the dependencies you can run following command -
+
+```
+$ pip install -r requirements.txt
+```
+
 Make sure that you have installed all the prerequisites.
 
 ### Run
